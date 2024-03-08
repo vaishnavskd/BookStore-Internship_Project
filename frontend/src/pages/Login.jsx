@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import { Button, Grid, Link, TextField } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import styles from '../assets/css/Login.module.css'
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -26,14 +27,8 @@ const Login = () => {
     
 
     return (
-        <div style={{
-            margin: '7%',
-            display: 'grid',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center'
-        }}>
-            <Grid container spacing={2}>
+        <div className={styles.main} >
+            <Grid container spacing={2} className={styles.login}>
                 <Grid item xs={12}>
                     <Typography variant="h4" color="initial">Login</Typography>
                 </Grid>

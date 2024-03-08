@@ -8,6 +8,7 @@ const cors=require('cors')
 const UserRoute=require('./routes/userRoutes')
 const SignupRoute=require('./routes/signupRoutes')
 const LoginRoute=require('./routes/loginRoute')
+const BookRoute=require('./routes/booksRoutes')
 
 app.use(express.json())
 
@@ -17,6 +18,7 @@ app.use(cors())
 app.use('/api/user',UserRoute)
 app.use('/api/signup',SignupRoute)
 app.use('/api/login',LoginRoute)
+app.use('/api/books',BookRoute)
 
 // Connection to the Server port
 app.listen(PORT,()=>{

@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-// const { Authenticate } = require('../middleware/authToken')
-const { getData } = require('../controllers/userController')
+const userController=require('../controllers/userController')
 
-router.get('/userdata', getData);
+router.get('/')
+    .get(userController.getData)
 
 module.exports = router

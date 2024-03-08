@@ -16,7 +16,7 @@ const BooksList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/books');
+        const response = await axios.get('http://localhost:3001/api/books');
         setBookData(response.data);
       } catch (error) {
         console.error('Error fetching book data:', error);
@@ -27,15 +27,15 @@ const BooksList = () => {
 
   return (
     <div style={{
-      padding: '5%',
+      padding:'2rem',
       textAlign: 'center'
     }}>
-      <Typography variant='h4'>Books List</Typography>
+      <Typography variant='h4' sx={{padding:'1em'}}>Books List</Typography>
       <br />
       <br />
       <Grid container spacing={2}>
         {bookData.map((book, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid item xs={12} sm={6} md={2} key={index}>
             <Card sx={{ height: '100%' }}>
               <CardMedia
                 component="img"
@@ -50,7 +50,6 @@ const BooksList = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Share</Button>
                 <Button size="small">Learn More</Button>
               </CardActions>
             </Card>

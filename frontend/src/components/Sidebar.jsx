@@ -1,24 +1,42 @@
-import { Button, ButtonGroup, Typography } from '@mui/material';
 import React from 'react';
+import { Button, Drawer, ButtonGroup, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import UserBooks from './UserBooks';
-import UserProfile from './UserProfile';
 import BooksList from './BooksList';
 
-const Sidebar = ({ onSelectElement }) => {
+const Sidebar = ({ isDrawerOpen, toggleDrawer, onSelectElement }) => {
 
     return (
-        <div style={{ display: 'flex', backgroundColor: '#cccccc', margin: '0', justifyContent: 'center', height: '550px', alignItems: 'stretch' }}>
-            <ButtonGroup variant='plain' orientation='vertical' color='inherit'>
-                <div style={{ paddingTop: '2rem', paddingBottom: '5rem' }}>
-                    <PersonIcon sx={{ fontSize: '50px' }} />
-                    <Typography sx={{ paddingTop: '1rem' }}>UserName</Typography>
-                </div>
-                <Button onClick={() => onSelectElement(<BooksList/>)}>Home</Button>
-                <Button onClick={() => onSelectElement(<UserBooks />)}>Books Rented</Button>
-                <Button onClick={() => onSelectElement(<UserProfile />)}>Profile</Button>
-            </ButtonGroup>
-        </div>
+        <Drawer
+            anchor="left"
+            open={isDrawerOpen}
+            onClose={toggleDrawer}
+            style={{ height: '100vh', width: '200px' }}
+        >
+            <div style={{ backgroundColor: 'beige', height: '100%', padding: '20px', width: '200px' }}>
+                <ButtonGroup
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    orientation='vertical'
+                    variant='plain'
+                    color='primary'
+                >
+                    <div style={{ marginBottom: '5rem', marginTop: '5rem', textAlign: 'center' }}>
+                        <PersonIcon fontSize='large' />
+                        <Typography>UserName</Typography>
+                    </div>
+                    <Button sx={{ marginBottom: '2rem' }} onClick={() => {
+                        onSelectElement(<BooksList />);
+                        toggleDrawer();
+                    }}>Home</Button>
+                    <Button sx={{ marginBottom: '2rem' }}>Books Rented</Button>
+                    <Button sx={{ marginBottom: '2rem' }}>Profile</Button>
+                </ButtonGroup>
+            </div>
+        </Drawer>
     );
 };
 

@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+.navbar {
+    background: linear-gradient(to bottom, rgb(170, 94, 94), #FFA21C);
+}
+
+.navHead {
+    font-family: 'Shadows Into Light', cursive !important;
+    font-weight: 400;
+}

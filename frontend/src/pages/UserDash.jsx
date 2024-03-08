@@ -1,36 +1,30 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
+import UserNav from '../components/UserNav';
 import Sidebar from '../components/Sidebar';
-import Footer from '../components/Footer';
+import { Typography } from '@mui/material';
 
 
 const UserDash = () => {
-    const styles = {
-        display: 'grid',
-        gridTemplateColumns: '0.2fr 1.2fr',
-        gridTemplateRows: '0.4fr 2.3fr 0.2fr',
-        gridTemplateAreas: `
-            "navbar navbar"
-            "sidebar content"
-            "footer footer"
-        `,
-    };
+    const [user,setUser]=useState([])
+    const token = localStorage.getItem("token");
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [selectedElement, setSelectedElement] = useState(null);
+
+    const toggleDrawer = () => {
+        setIsDrawerOpen(!isDrawerOpen);
+    };
+
     return (
-        <div style={styles}>
-            <div style={{ gridArea: 'navbar' }}>
-                <Navbar />
+        <>
+            <UserNav token={token} isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+            <Sidebar isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} onSelectElement={setSelectedElement} />
+            <div style={{ flex: 1, padding: '20px', transform: isDrawerOpen ? 'translateX(250px)' : 'none', transition: 'transform 0.3s ease' }}>
+                {selectedElement ? selectedElement : (
+                <Typography variant='h4' sx={{textAlign:'center'}}>
+                    Welcome
+                </Typography>)}
             </div>
-            <div style={{ gridArea: 'sidebar' }}>
-                <Sidebar onSelectElement={setSelectedElement}/>
-            </div>
-            <div style={{ gridArea: 'content' }}>
-                {selectedElement}
-            </div>
-            <div style={{ gridArea: 'footer' }}>
-                <Footer/>
-            </div>
-        </div>
+        </>
     );
 };
 

@@ -1,0 +1,13 @@
+.main{
+    margin: 7%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.login {
+    background-color: rgba(245, 245, 220, 0.816); 
+    padding: 2%;
+    border-radius: 2rem;
+}
