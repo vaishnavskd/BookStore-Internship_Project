@@ -1,13 +1,12 @@
 import React from 'react';
 import Navbar from './../components/Navbar';
-import { Typography } from '@mui/material';
-import styles from '../assets/css/Main.module.css'; 
+import QuotesHome from '../components/QuotesHome';
 
 const Main = (props) => {
   return (
-    <div className={styles.main}> 
+    <div > 
       <Navbar />
-      {props.child ? props.child : <Typography variant='h4' sx={{ textAlign: 'center' }}>Welcome</Typography>}
+      {props.child ? props.child : <QuotesHome/>}
     </div>
   );
 };

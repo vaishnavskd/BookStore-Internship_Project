@@ -5,12 +5,14 @@ import '../App.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from "react-hot-toast";
+import styles from '../assets/css/Signup.module.css'
 
 const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
     const [passwordsMatch, setPasswordsMatch] = useState();
     const navigate = useNavigate();
     const [errMsg, setErrMsg] = useState('');
@@ -27,7 +29,7 @@ const Signup = () => {
                 toast.error("Enter valid credentials")
             }
             else {
-                const response = await axios.post('http://localhost:3001/api/signup', { email, password, name })
+                const response = await axios.post('http://localhost:3001/api/signup', { email, password, name, phone })
                 toast.success("Successfully Registered")
                 navigate('/login')
             }
@@ -45,17 +47,12 @@ const Signup = () => {
     };
 
     return (
-        <div style={{
-            margin: '7.9%',
-            padding: '0% 10% 0% 10%',
-            display: 'grid',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }} className='App'>
-            <Typography variant="h4" color="initial">Signup</Typography>
-            <br /><br />
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+        <div className={styles.main}>
+            <Grid container spacing={2} className={styles.signupContainer}>
+                <Grid item xs={12}>
+                    <Typography variant="h4" color="initial">Signup</Typography>
+                </Grid>
+                <Grid item xs={12}>
                     <TextField
                         label="Your Name"
                         name="name"
@@ -72,6 +69,16 @@ const Signup = () => {
                         variant='outlined'
                         value={email}
                         onChange={(e) => { setEmail(e.target.value) }}
+                        fullWidth
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        label="Your Phone Number"
+                        name='phone'
+                        variant='outlined'
+                        value={phone}
+                        onChange={(e) => { setPhone(e.target.value) }}
                         fullWidth
                     />
                 </Grid>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Drawer, ButtonGroup, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import BooksList from './BooksList';
+import { useNavigate } from 'react-router-dom';
 
-const Sidebar = ({ isDrawerOpen, toggleDrawer, onSelectElement }) => {
-
+const Sidebar = ({ user, isDrawerOpen, toggleDrawer, onSelectElement }) => {
+    const navigate=useNavigate()
     return (
         <Drawer
             anchor="left"
@@ -26,14 +26,17 @@ const Sidebar = ({ isDrawerOpen, toggleDrawer, onSelectElement }) => {
                 >
                     <div style={{ marginBottom: '5rem', marginTop: '5rem', textAlign: 'center' }}>
                         <PersonIcon fontSize='large' />
-                        <Typography>UserName</Typography>
+                        <Typography>{user.name}</Typography>
                     </div>
                     <Button sx={{ marginBottom: '2rem' }} onClick={() => {
-                        onSelectElement(<BooksList />);
+                        navigate('/user')
                         toggleDrawer();
                     }}>Home</Button>
                     <Button sx={{ marginBottom: '2rem' }}>Books Rented</Button>
-                    <Button sx={{ marginBottom: '2rem' }}>Profile</Button>
+                    <Button sx={{ marginBottom: '2rem' }} onClick={()=>{
+                        navigate('/profile')
+                        toggleDrawer()
+                    }}>Profile</Button>
                 </ButtonGroup>
             </div>
         </Drawer>

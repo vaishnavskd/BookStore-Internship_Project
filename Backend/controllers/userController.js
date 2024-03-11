@@ -1,14 +1,31 @@
 const User = require('../db/user');
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const getData = async (req, res) => {
-    const { email } = req.params;
     try {
+        const token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+        const decoded = await jwt.verify(token.replace('Bearer ', ''), process.env.ACCESS_TOKEN_SECRET);
+        const { email } = decoded;
         const userData = await User.findOne({ email });
+        if (!userData) {
+            return res.status(404).json({ message: 'User not found' });
+        }
         res.status(200).json(userData);
     } catch (error) {
-        res.status(500).json({ message: "Error" });
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ message: 'Invalid token' });
+        } else if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ message: 'Token expired' });
+        }
+        res.status(500).json({ message: 'Server error' });
     }
-}
+};
+
+
 
 const updateData = async (req, res) => {
     try {
@@ -18,10 +35,8 @@ const updateData = async (req, res) => {
             return res.status(401).json({ message: "No token provided. Authentication required." });
         }
 
-        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-        const userData = await User.findOne(decoded.email);
-        res.send(userData)
+        const decoded = await jwt.verify(token.replace('Bearer ', ''), process.env.ACCESS_TOKEN_SECRET);
+        const userData = await User.findOne({ email: decoded.email });
         if (!userData) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -31,7 +46,7 @@ const updateData = async (req, res) => {
 
         await User.updateOne({ _id: userData.id }, updateObj);
 
-        res.status(200).json({ message: "User data updated successfully" });
+        res.status(200).json({message:'Successfully Updated'});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal server error" });

@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+.main {
+    display: block;
+    text-align: end;
+    font-family: "Shadows Into Light", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(0, 0, 0);
+    padding: 5%;
+}
+
+.quote{
+    font-size: 30px;
+    transition: ease-in;
+}

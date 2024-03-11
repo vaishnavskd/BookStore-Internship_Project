@@ -1,0 +1,14 @@
+.main{
+    margin: 7.9%;
+    padding: 0% 10% 0% 10%;
+    display: grid;
+    justify-content: center;
+    align-items:center;
+}
+
+.signupContainer{
+    background-color: beige; 
+    padding: 2%;
+    border-radius: 2rem;
+    
+}

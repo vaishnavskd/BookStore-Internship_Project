@@ -5,14 +5,21 @@ import {
   CardContent,
   CardActions,
   Button,
-  Grid
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Container,
+  DialogActions
 } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const BooksList = () => {
+  const token = localStorage.getItem('token')
   const [bookData, setBookData] = useState([])
-
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,10 +34,9 @@ const BooksList = () => {
 
   return (
     <div style={{
-      padding:'2rem',
+      padding: '2rem',
       textAlign: 'center'
     }}>
-      <Typography variant='h4' sx={{padding:'1em'}}>Books List</Typography>
       <br />
       <br />
       <Grid container spacing={2}>
@@ -49,13 +55,28 @@ const BooksList = () => {
                   {book.name}
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Button size="small">Learn More</Button>
+              <CardActions sx={{justifyContent:'center',alignItems:'baseline'}}>
+                <Button size="small" onClick={() => {
+                  setSelected(book);
+                  setOpen(true);
+                }}>Learn More</Button>
               </CardActions>
             </Card>
           </Grid>
         ))}
       </Grid>
+      <Dialog open={open} onClose={() => setOpen(false)} sx={{ textAlign: 'center' }}>
+        <DialogTitle>Details</DialogTitle>
+        <DialogContent>
+          <Container>
+            {selected && selected.description}
+          </Container>
+        </DialogContent>
+        {token && <DialogActions sx={{justifyContent:'center'}}>
+          <Button variant='outlined'>Rent</Button>
+        </DialogActions>}
+      </Dialog>
+
     </div>
   )
 }

@@ -4,6 +4,7 @@ import Login from '../src/pages/Login';
 import Signup from './pages/Signup';
 import BooksList from './components/BooksList';
 import UserDash from './pages/UserDash';
+import UserProfile from './components/UserProfile';
 
 function App() {
   const routes = [
@@ -27,7 +28,14 @@ function App() {
       path:'/user',
       element: <UserDash/>
     },
-    
+    {
+      path:'/profile',
+      element:<UserDash child={<UserProfile />}/>
+    },
+    {
+      path:'/books-available',
+      element:<UserDash child={<BooksList/>}/>
+    }
   ];
   
   return (

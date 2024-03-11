@@ -15,12 +15,13 @@ app.use(express.json())
 // DB Connection
 connect()
 app.use(cors())
-app.use('/api/user',UserRoute)
 app.use('/api/signup',SignupRoute)
 app.use('/api/login',LoginRoute)
 app.use('/api/books',BookRoute)
-
+app.use('/api/user',UserRoute)
 // Connection to the Server port
 app.listen(PORT,()=>{
     console.log(`Server is running on Port ${PORT}`)
 })
+
+//Admin:admin, password:admin123
