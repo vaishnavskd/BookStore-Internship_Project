@@ -2,7 +2,6 @@ import { Button } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
-import BooksList from './BooksList';
 
 const UserNav = ({ token, isDrawerOpen, toggleDrawer, onSelectElement }) => {
     const navigate = useNavigate();

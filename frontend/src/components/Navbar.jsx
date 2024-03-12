@@ -6,8 +6,8 @@ import styles from '../assets/css/Navbar.module.css'
 const Navbar = () => {
     const navigate = useNavigate()
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" className={styles.navbar}>
+        <Box>
+            <AppBar position="static" className={styles.navbar} color='inherit'>
                 <Toolbar>
                     <Typography variant='h4' component="div" sx={{ textAlign: 'start', flexGrow: 1 }} className={styles.navHead}>
                         BookLy

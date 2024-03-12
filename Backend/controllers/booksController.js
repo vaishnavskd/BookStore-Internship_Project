@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Books = require('../db/book')
 
-const getBooksData = async (req, res) => {
+const getAllBooks = async (req, res) => {
     try {
         const bookData = await Books.find();
         res.status(200).json(bookData);
@@ -9,6 +9,21 @@ const getBooksData = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
+
+const getBookData = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const bookData = await Books.findById(id);
+        if (!bookData) {
+            return res.status(404).json({ message: 'Book not found' });
+        }
+        res.status(200).json(bookData);
+    } catch (error) {
+        console.error('Error fetching book data:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 
 const addBooks = async (req, res) => {
     try {
@@ -42,7 +57,7 @@ const updateBooks = async (req, res) => {
 };
 
 
-module.exports = { getBooksData, updateBooks, addBooks }
+module.exports = { getBookData,getAllBooks, updateBooks, addBooks }
 
 
 

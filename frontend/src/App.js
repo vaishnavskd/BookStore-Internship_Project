@@ -2,15 +2,19 @@ import { Routes, Route } from 'react-router-dom';
 import Main from '../src/pages/Main'; 
 import Login from '../src/pages/Login'; 
 import Signup from './pages/Signup';
-import BooksList from './components/BooksList';
+import BooksList from './pages/BooksList';
 import UserDash from './pages/UserDash';
 import UserProfile from './components/UserProfile';
+import Home from './pages/Home';
+import AdminDash from './pages/AdminDash';
+import BookDetails from './components/BookDetails';
+
 
 function App() {
   const routes = [
     {
       path: '/',
-      element: <Main />
+      element: <Main/>
     },
     {
       path:'/login',
@@ -22,7 +26,7 @@ function App() {
     },
     {
       path:'/books',
-      element: <Main child={<BooksList/>} />
+      element: <Home child={<BooksList/>}/> 
     },
     {
       path:'/user',
@@ -35,6 +39,14 @@ function App() {
     {
       path:'/books-available',
       element:<UserDash child={<BooksList/>}/>
+    },
+    {
+      path:'/admin',
+      element:<AdminDash/>,
+    },
+    {
+      path:'/book-details/:bookID',
+      element:<UserDash child={<BookDetails/>}/>,
     }
   ];
   

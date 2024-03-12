@@ -2,9 +2,8 @@ const bookController=require('../controllers/booksController')
 const express=require('express')
 const router=express.Router()
 
-router.route('/')
-    .get(bookController.getBooksData)
-
+router.get('/',bookController.getAllBooks)
+router.get('/:id',bookController.getBookData)
 
 
 

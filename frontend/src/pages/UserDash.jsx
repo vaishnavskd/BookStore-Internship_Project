@@ -52,10 +52,15 @@ const UserDash = (props) => {
             <div style={{ flex: 1, padding: '20px', transform: isDrawerOpen ? 'translateX(250px)' : 'none', transition: 'transform 0.3s ease' }}>
                 {props.child ? (
                         props.child
-                    ) : (
+                    ) : (<>
                         <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                            Welcome {user.name}
+                            Welcome
                         </Typography>
+                        <br />
+                        <Typography variant='h3' sx={{ textAlign: 'center' }}>
+                            {user.name}
+                        </Typography>
+                        </>
                     )
                 }
             </div>

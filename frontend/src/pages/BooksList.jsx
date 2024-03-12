@@ -14,6 +14,8 @@ import {
 } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 
 const BooksList = () => {
   const token = localStorage.getItem('token')
@@ -31,7 +33,7 @@ const BooksList = () => {
     };
     fetchData();
   }, []);
-
+  const navigate=useNavigate()
   return (
     <div style={{
       padding: '2rem',
@@ -73,7 +75,9 @@ const BooksList = () => {
           </Container>
         </DialogContent>
         {token && <DialogActions sx={{justifyContent:'center'}}>
-          <Button variant='outlined'>Rent</Button>
+          <Button variant='outlined' onClick={()=>{
+            navigate(`/book-details/${selected._id}`)
+          }}>Details</Button>
         </DialogActions>}
       </Dialog>
 
