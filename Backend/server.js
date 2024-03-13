@@ -1,4 +1,3 @@
-// Modules and Packages imported
 const express=require('express')
 const app=new express()
 require('dotenv').config()
@@ -19,6 +18,7 @@ app.use('/api/signup',SignupRoute)
 app.use('/api/login',LoginRoute)
 app.use('/api/books',BookRoute)
 app.use('/api/user',UserRoute)
+
 // Connection to the Server port
 app.listen(PORT,()=>{
     console.log(`Server is running on Port ${PORT}`)

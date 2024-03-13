@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 .container {
     display: grid;
     grid-template-columns: 0.6fr 1fr;
@@ -8,20 +10,32 @@
         "title title"
         "coverimg content"
         "button button";
+    padding: 3%;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .coverimg {
     grid-area: coverimg;
+    height: 400px;
+    width: 300px;
+    object-fit: contain;
+    justify-content: center;
 }
 
 .content {
     grid-area: content;
+    font-size: 18px;
+    text-align: start;
 }
 
 .button {
     grid-area: button;
+    padding-top: 3rem;
 }
 
 .title {
     grid-area: title;
+    font-size: 30px;
 }

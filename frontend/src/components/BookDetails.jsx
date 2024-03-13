@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../assets/css/BookRent.module.css';
+import styles from '../assets/css/BookDetails.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 
 const BookDetails = () => {
     const { bookID } = useParams();
-    const [book, setBook] = useState(null); // Initialize book state as null
+    const [book, setBook] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [rentFormOpen,setRentFormOpen]=useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3001/api/books/${bookID}`);
-                setBook(response.data); // Set book data into state
+                setBook(response.data);
             } catch (error) {
                 console.error('Error fetching book data:', error);
             }
         };
 
-        fetchData(); // Call fetchData function when component mounts
-    }, [bookID]); // Add bookID to the dependency array to re-fetch data when it changes
+        fetchData();
+    }, [bookID]);
 
-    // Render book details
     return (
         <div className={styles.container}>
             {book ? (
@@ -29,15 +31,39 @@ const BookDetails = () => {
                     <div className={styles.coverimg}>
                         <img src={book.coverimg} alt={book.name} />
                     </div>
-                    <div className={styles.content}>{book.description}</div>
-                    {/* Add other book details here */}
+                    <div className={styles.content}>
+                        <b>Genre: {book.genre}</b>
+                        <br />
+                        <br />
+                        {book.summary}
+                        <br /><br />
+                        <br />
+                        <b>Availability Status:</b> {book.availstatus ? "Yes" : "No"}
+                        <br />
+                        <b>Reviews:</b>
+                        <br />
+                        {book.userReviews && book.userReviews.map(review => (
+                            <div key={review.email}>
+                                {review.email}: {review.review}
+                            </div>
+                        ))}
+                    </div>
                     <div className={styles.button}>
-                        {/* Render button or action component */}
+                        <Button color='primary' variant='contained' onClick={() => setOpen(true)}>Rent it</Button>
                     </div>
                 </>
             ) : (
                 <div>Error</div>
             )}
+            <Dialog open={open}>
+                <DialogContent sx={{ textAlign: 'center' }}>Confirm your choice</DialogContent>
+                <DialogActions sx={{ justifyContent: 'center' }}>
+                    <Button color='primary' variant='contained' onClick={()=>{
+                        setRentFormOpen(true)
+                    }}>Yes</Button>
+                    <Button color='error' variant='contained' onClick={() => setOpen(false)}>No</Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };

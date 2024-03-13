@@ -1,18 +1,24 @@
-// Books Model
-const mongoose=require('mongoose')
-const book=new mongoose.Schema({
-    name:String,
-    coverimg:String,
-    author:String,
-    genre:String,
-    languages:String,
-    rentalperiod:Number,
-    description:String,
-    availstatus:Boolean,
-    isbn:Number,
-    publicationyr:Date,
-})
+const mongoose = require('mongoose');
 
-const BookSchema=mongoose.model('Book',book)
+const userReviewSchema = new mongoose.Schema({
+    email: String,
+    review: String
+});
 
-module.exports = BookSchema
+const book = new mongoose.Schema({
+    name: String,
+    coverimg: String,
+    author: String,
+    genre: String,
+    languages: String,
+    rentalperiod: Number,
+    description: String,
+    availstatus: Boolean,
+    isbn: Number,
+    publicationyr: Date,
+    userReview: [userReviewSchema] 
+});
+
+const BookModel = mongoose.model('Book', book);
+
+module.exports = BookModel;
