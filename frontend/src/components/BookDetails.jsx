@@ -3,12 +3,13 @@ import styles from '../assets/css/BookDetails.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
+import RentForm from './RentForm';
 
 const BookDetails = () => {
     const { bookID } = useParams();
     const [book, setBook] = useState(null);
     const [open, setOpen] = useState(false);
-    const [rentFormOpen,setRentFormOpen]=useState(false)
+    const [rentFormOpen, setRentFormOpen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,7 +20,6 @@ const BookDetails = () => {
                 console.error('Error fetching book data:', error);
             }
         };
-
         fetchData();
     }, [bookID]);
 
@@ -58,12 +58,16 @@ const BookDetails = () => {
             <Dialog open={open}>
                 <DialogContent sx={{ textAlign: 'center' }}>Confirm your choice</DialogContent>
                 <DialogActions sx={{ justifyContent: 'center' }}>
-                    <Button color='primary' variant='contained' onClick={()=>{
+                    <Button color='primary' variant='contained' onClick={() => {
                         setRentFormOpen(true)
+                        setOpen(false)
                     }}>Yes</Button>
                     <Button color='error' variant='contained' onClick={() => setOpen(false)}>No</Button>
                 </DialogActions>
             </Dialog>
+            <RentForm formOpen={rentFormOpen} onClose={() => {
+                setRentFormOpen(false);
+            }} book={book} />
         </div>
     );
 };

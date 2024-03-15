@@ -16,6 +16,7 @@ const Login = () => {
                 const token = response.data.accessToken;
                 const role=response?.data?.role
                 localStorage.setItem("token", token);
+                localStorage.setItem("role",role);
                 navigate(role === 'user' ? '/user' : '/admin');
             } else {
                 console.error("Unauthorized Entry", response.data);
