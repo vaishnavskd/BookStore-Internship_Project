@@ -58,7 +58,9 @@ const UserBooks = () => {
         <textarea id='review' name='review' rows={6} cols={80}/>
       </DialogContent>
       <DialogActions>
-        <Button>Add Review</Button>
+        <Button onClick={()=>{
+          setOpen(false)
+        }}>Add Review</Button>
       </DialogActions>
     </Dialog>
     </>
