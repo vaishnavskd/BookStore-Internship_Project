@@ -16,6 +16,9 @@ const AdminNav = () => {
             Admin
         </div>
         <div>
+            <Button onClick={()=>{
+                navigate('/admin')
+            }}>Home</Button>
             <Button onClick={handleLogout}>Logout</Button>
         </div>
         </div>

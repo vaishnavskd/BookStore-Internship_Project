@@ -17,7 +17,7 @@ connect()
 app.use(cors())
 app.use('/api/signup',SignupRoute)
 app.use('/api/login',LoginRoute)
-app.use('/api/book',BookRoute)
+app.use('/api/books',BookRoute)
 app.use('/api/user',UserRoute)
 app.use('/api/admin',AdminRoute)
 

@@ -30,28 +30,45 @@ const getData = async (req, res) => {
 const updateData = async (req, res) => {
     try {
         const token = req.headers.authorization;
-
         if (!token) {
             return res.status(401).json({ message: "No token provided. Authentication required." });
         }
-
         const decoded = await jwt.verify(token.replace('Bearer ', ''), process.env.ACCESS_TOKEN_SECRET);
         const userData = await User.findOne({ email: decoded.email });
         if (!userData) {
             return res.status(404).json({ message: "User not found" });
         }
-
         const { email, password, phone, name } = req.body;
-        const updateObj = { email, password, phone, name };
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const updateObj = { email, "password": hashedPassword, phone, name };
 
         await User.updateOne({ _id: userData.id }, updateObj);
 
-        res.status(200).json({message:'Successfully Updated'});
+        res.status(200).json({ message: 'Successfully Updated' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+const rentedDetails = async (req, res) => {
+    try {
+        const token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({ message: "No token provided. Authentication required." });
+        }
+        const decoded = await jwt.verify(token.replace('Bearer ', ''), process.env.ACCESS_TOKEN_SECRET);
+        const rentBookData = decoded.rentedBooks;
+        if (!rentBookData) {
+            console.log("No books Rented")
+        }
+        res.status(200).json(rentBookData)
+    } catch (error) {
+        console.error("Error in rentedDetails:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
 
 const deleteUser = async (req, res) => {
     try {
@@ -63,7 +80,7 @@ const deleteUser = async (req, res) => {
             return res.status(401).json({ message: "No token provided. Authentication required." });
         }
 
-        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const decoded = await jwt.verify(token.replace('Bearer ', ''), process.env.ACCESS_TOKEN_SECRET);
 
         if (decoded.role !== 'Admin') {
             return res.status(403).json({ message: "Access forbidden. Admin privileges required." });
@@ -90,13 +107,10 @@ const getAllUserData = async (req, res) => {
         if (!token) {
             return res.status(401).json({ message: "No token provided. Authentication required." });
         }
-
-        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-        if (decoded.role != 'Admin') {
+        const decoded = await jwt.verify(token.replace('Bearer ', ''), process.env.ACCESS_TOKEN_SECRET);
+        if (decoded.role != 'admin') {
             return res.status(403).json({ message: "Access forbidden. Admin privileges required." });
         }
-
         const userData = await User.find();
         res.status(200).json(userData);
     } catch (error) {
@@ -104,4 +118,4 @@ const getAllUserData = async (req, res) => {
     }
 }
 
-module.exports = { getData, updateData, getAllUserData };
+module.exports = { getData, updateData, getAllUserData, deleteUser, rentedDetails };

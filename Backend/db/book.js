@@ -16,6 +16,7 @@ const book = new mongoose.Schema({
     availstatus: Boolean,
     isbn: Number,
     publicationyr: Date,
+    summary:String,
     userReview: [userReviewSchema] 
 });
 

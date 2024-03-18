@@ -33,7 +33,7 @@ const BooksList = () => {
     };
     fetchData();
   }, []);
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   return (
     <div style={{
       padding: '2rem',
@@ -56,8 +56,10 @@ const BooksList = () => {
                 <Typography gutterBottom variant="h5" component="div">
                   {book.name}
                 </Typography>
+                <br />
+                <Typography component="div">Genre:{book.genre}</Typography>
               </CardContent>
-              <CardActions sx={{justifyContent:'center',alignItems:'baseline'}}>
+              <CardActions sx={{ justifyContent: 'center', alignItems: 'baseline' }}>
                 <Button size="small" onClick={() => {
                   setSelected(book);
                   setOpen(true);
@@ -71,11 +73,15 @@ const BooksList = () => {
         <DialogTitle>Details</DialogTitle>
         <DialogContent>
           <Container>
-            {selected && selected.description}
+            {selected &&
+              <>
+                {selected.genre && <p>Genre:{selected.genre}</p>}
+                {selected.description && <p>{selected.description}</p>}
+              </>}
           </Container>
         </DialogContent>
-        {token && <DialogActions sx={{justifyContent:'center'}}>
-          <Button variant='outlined' onClick={()=>{
+        {token && <DialogActions sx={{ justifyContent: 'center' }}>
+          <Button variant='outlined' onClick={() => {
             navigate(`/book-details/${selected._id}`)
           }}>Details</Button>
         </DialogActions>}

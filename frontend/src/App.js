@@ -8,6 +8,9 @@ import UserProfile from './components/UserProfile';
 import Home from './pages/Home';
 import AdminDash from './pages/AdminDash';
 import BookDetails from './components/BookDetails';
+import ListBooks from './components/ListBooks';
+import UserList from './components/UserList';
+import UserBooks from './components/UserBooks';
 
 
 function App() {
@@ -47,6 +50,18 @@ function App() {
     {
       path:'/book-details/:bookID',
       element:<UserDash child={<BookDetails/>}/>,
+    },
+    {
+      path:'/book-list',
+      element:<AdminDash child={<ListBooks/>}/>
+    },
+    {
+      path:'/user-list',
+      element:<AdminDash child={<UserList/>}/>
+    },
+    {
+      path:'/user-rented',
+      element:<UserDash child={<UserBooks/>}/>
     }
   ];
   

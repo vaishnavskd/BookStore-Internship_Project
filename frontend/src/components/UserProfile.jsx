@@ -9,6 +9,7 @@ const UserProfile = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [libraryID, setLibraryID] = useState('');
 
     const fetchUserData = async () => {
         try {
@@ -21,6 +22,7 @@ const UserProfile = () => {
             setName(userData.name);
             setEmail(userData.email);
             setPhone(userData.phone);
+            setLibraryID(userData.libraryID)
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
@@ -28,7 +30,7 @@ const UserProfile = () => {
 
     useEffect(() => {
         fetchUserData();
-    }, []);
+    },);
     
 
     const handleSave = async () => {
@@ -60,6 +62,9 @@ const UserProfile = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Typography>Email: {email}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography>Library ID: {libraryID}</Typography>
                 </Grid>
                 <Grid item xs={12}>
                     <Typography>Phone: {phone}</Typography>

@@ -3,7 +3,8 @@ import { Button, Drawer, ButtonGroup, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from 'react-router-dom';
 
-const Sidebar = ({ user, isDrawerOpen, toggleDrawer, onSelectElement }) => {
+
+const Sidebar = ({ user, isDrawerOpen, toggleDrawer }) => {
     const navigate=useNavigate()
     return (
         <Drawer
@@ -27,12 +28,17 @@ const Sidebar = ({ user, isDrawerOpen, toggleDrawer, onSelectElement }) => {
                     <div style={{ marginBottom: '5rem', marginTop: '5rem', textAlign: 'center' }}>
                         <PersonIcon fontSize='large' />
                         <Typography>{user.name}</Typography>
+                        <br />
+                        <Typography>Library ID:{user.libraryID}</Typography>
                     </div>
                     <Button sx={{ marginBottom: '2rem' }} onClick={() => {
                         navigate('/user')
                         toggleDrawer();
                     }}>Home</Button>
-                    <Button sx={{ marginBottom: '2rem' }}>Books Rented</Button>
+                    <Button sx={{ marginBottom: '2rem' }} onClick={()=>{
+                        navigate('/user-rented')
+                        toggleDrawer()
+                    }}>Books Rented</Button>
                     <Button sx={{ marginBottom: '2rem' }} onClick={()=>{
                         navigate('/profile')
                         toggleDrawer()
