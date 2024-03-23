@@ -6,6 +6,7 @@ const UserBooks = () => {
   const token = localStorage.getItem('token');
   const [user, setUser] = useState({ rentedBooks: [] }); 
   const [open,setOpen]=useState(false)
+  const [closeDialog,setCloseDialog]=useState(false)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,24 +44,32 @@ const UserBooks = () => {
                 <Button onClick={()=>{
                   setOpen(true)
                 }}>Add Review</Button>
-                <Button>Close Rent</Button>
+                <Button onClick={()=>{setCloseDialog(true)
+                }}>Close Rent</Button>
+                <Dialog open={closeDialog} onClose={()=>{setCloseDialog(false)}} sx={{textAlign:'center'}}>
+                    <DialogTitle>Are you sure want to close the rent?</DialogTitle>
+                    <DialogActions sx={{justifyContent:'center'}}>
+                      <Button color='primary' variant='contained'>Yes</Button>
+                      <Button color='error' variant='contained' onClick={()=>{setCloseDialog(false)}}>No</Button>
+                    </DialogActions>
+                  </Dialog>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </div>
-    <Dialog open={open}>
+    <Dialog open={open} onClose={()=>{
+      setOpen(false)
+    }}>
       <DialogTitle>Add Review</DialogTitle>
       <DialogContent>
-        <label for='review'>Review</label>
+        <label htmlFor='review'>Review</label>
         <br />
-        <textarea id='review' name='review' rows={6} cols={80}/>
+        <textarea id='review' name='review' rows={6} cols={80} />
       </DialogContent>
       <DialogActions>
-        <Button onClick={()=>{
-          setOpen(false)
-        }}>Add Review</Button>
+        <Button>Add Review</Button>
       </DialogActions>
     </Dialog>
     </>
