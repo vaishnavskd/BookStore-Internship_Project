@@ -15,6 +15,8 @@ app.use(express.json())
 // DB Connection
 connect()
 app.use(cors())
+
+// Routes
 app.use('/api/signup',SignupRoute)
 app.use('/api/login',LoginRoute)
 app.use('/api/books',BookRoute)
